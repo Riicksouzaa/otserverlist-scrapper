@@ -1,17 +1,7 @@
-import { Request, Response } from "express"
 import db from "../database/connection"
 import log from "../utils/logs"
 
 export default class Servers {
-
-    async index(req: Request, resp: Response) {
-        try {
-            const socket = await db('servers').select('*')
-            return resp.status(200).json(socket)
-        } catch (e) {
-            return resp.status(401).json(e)
-        }
-    }
 
 
     async searchError(urlsocket: string) {
