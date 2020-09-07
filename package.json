@@ -3,16 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "devDependencies": {
-    "@types/agenda": "^2.0.9",
-    "@types/cors": "^2.8.7",
-    "@types/express": "^4.17.8",
-    "@types/node": "^14.6.4",
-    "nodemon": "^2.0.4",
-    "ts-node": "^9.0.0",
-    "ts-node-dev": "^1.0.0-pre.62",
-    "typescript": "^4.0.2"
-  },
+  "devDependencies": {},
   "scripts": {
     "start": "ts-node src/server.ts",
     "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts",
@@ -22,14 +13,20 @@
   },
   "dependencies": {
     "agenda": "^3.1.0",
-    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
     "fast-xml-parser": "^3.17.4",
     "knex": "^0.21.5",
     "mysql": "^2.18.1",
     "node-html-parser": "^1.2.20",
     "sqlite3": "^5.0.0",
-    "tslog": "^2.8.0"
+    "tslog": "^2.8.0",
+    "@types/agenda": "^2.0.9",
+    "@types/cors": "^2.8.7",
+    "@types/express": "^4.17.8",
+    "@types/node": "^14.6.4",
+    "nodemon": "^2.0.4",
+    "ts-node": "^9.0.0",
+    "ts-node-dev": "^1.0.0-pre.62",
+    "typescript": "^4.0.2"
   }
 }
