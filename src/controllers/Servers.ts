@@ -27,32 +27,13 @@ export default class Servers {
         } = serverinfo
 
 
-
         const trx = await db.transaction()
+
         try {
-
             await trx('serversockets').where("urlsocket", '=', urlsocket).first('id').then(async (row) => {
-                await trx('servers').insert({
-                    socket_id: row.id,
-                    uptime,
-                    ip,
-                    servername,
-                    port,
-                    location,
-                    url,
-                    server,
-                    version,
-                    client
-                })
-                await trx.commit()
-            })
-
-            await trx.commit()
-            log.info(`server ${servername} adicionado com sucesso ao banco de dados`)
-        } catch (e) {
-            if (e.errno == 19 || e.code == 'ER_DUP_ENTRY') {
                 try {
-                    await trx('servers').where('servername', '=', servername).update({
+                    await trx('servers').insert({
+                        socket_id: row.id,
                         uptime,
                         ip,
                         servername,
@@ -61,19 +42,40 @@ export default class Servers {
                         url,
                         server,
                         version,
-                        client,
-                        updated_at: trx.raw(`now()`)
+                        client
                     })
+                    log.info(`server ${servername} adicionado com sucesso ao banco de dados`)
                     await trx.commit()
-                    log.info(`server ${servername} atualizado com sucesso`)
                 } catch (e) {
-                    await trx.rollback()
-                    log.error(`Ocorreu um erro ao fazer update do server ${servername}: ${e} `)
+                    if (e.errno == 19 || e.code == 'ER_DUP_ENTRY') {
+                        try {
+                            await trx('servers').where('servername', '=', servername).update({
+                                uptime,
+                                ip,
+                                servername,
+                                port,
+                                location,
+                                url,
+                                server,
+                                version,
+                                client,
+                                updated_at: trx.raw(`now()`)
+                            })
+                            log.info(`server ${servername} atualizado com sucesso`)
+                        } catch (e) {
+                            await trx.rollback()
+                            log.error(`Ocorreu um erro ao fazer update do server ${servername}: ${e} `)
+                        }
+                    } else {
+                        await trx.rollback()
+                        log.error(`Ocorreu um erro não catalogado ao inserir o server ${servername}:`, e)
+                    }
                 }
-            } else {
-                await trx.rollback()
-                log.error(`Ocorreu um erro não catalogado ao inserir o server ${servername}:`, e)
-            }
+            })
+            await trx.commit()
+        } catch (e) {
+            await trx.rollback()
+            log.error(`Ocorreu um erro não catalogado ao inserir o server ${servername}:`, e)
         }
     }
 }

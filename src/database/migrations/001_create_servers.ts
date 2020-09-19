@@ -3,7 +3,7 @@ import Knex from "knex"
 export async function up(knex: Knex) {
     return knex.schema.createTable('servers', table => {
         table.increments('id').primary()
-        table.integer('socket_id').unsigned().notNullable().references('id').inTable('serversockets').onDelete('CASCADE').onUpdate('CASCADE')
+        table.integer('socket_id').unsigned().notNullable().references('id').inTable('serversockets').onDelete('CASCADE').onUpdate('CASCADE').unique()
 
         table.string('url').notNullable()
         table.string('ip').notNullable()
