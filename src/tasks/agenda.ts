@@ -1,7 +1,7 @@
 import Agenda from "agenda"
 import serverTracker from "../controllers/tracker/server"
 import db from "../database/connection"
-import databaseconfig from "../../config/database_config"
+import databaseConfig from "../../config/database_config"
 import log from "../utils/logs"
 
 
@@ -10,7 +10,7 @@ export default class AgendaTasks {
 
 
     private task = new Agenda({
-        db: databaseconfig.mongodb,
+        db: databaseConfig.mongodb,
         processEvery: '*/1 * * * *'
     })
 

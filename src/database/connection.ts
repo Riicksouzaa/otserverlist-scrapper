@@ -1,6 +1,6 @@
 import knex from "knex"
-import databaseconfig from "../../config/database_config"
+import databaseConfig from "../../config/database_config"
 
-const db = knex(databaseconfig.mysql)
+const db = knex(databaseConfig.sqlite)
 
 export default db

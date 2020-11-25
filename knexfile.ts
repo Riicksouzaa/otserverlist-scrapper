@@ -1,3 +1,3 @@
-import databaseconfig from "./config/database_config"
+import databaseConfig from "./config/database_config"
 
-module.exports = databaseconfig.mysql
+module.exports = databaseConfig.sqlite

@@ -2,7 +2,7 @@ import path from "path"
 import * as dotenv from "dotenv"
 dotenv.config()
 
-const databaseconfig = {
+const databaseConfig = {
     mysql: {
         client: 'mysql',
         connection: {
@@ -45,4 +45,4 @@ const databaseconfig = {
     }
 }
 
-export default databaseconfig
+export default databaseConfig
