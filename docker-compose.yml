@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  scrapper:
+    image: node:fermium-alpine
+    command: npm run dev
+    depends_on:
+      - mysql
+      - mongodb
+    volumes:
+      - ./:/app
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    networks:
+      - scrapper_nw
+
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: scrapper
+      MYSQL_DATABASE: scrapperApi
+    ports:
+      - "3306:3306"
+    networks:
+      - scrapper_nw
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: scrapper
+    networks:
+      - scrapper_nw
+
+networks:
+  scrapper_nw:
