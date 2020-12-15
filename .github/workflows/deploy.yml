@@ -24,12 +24,12 @@ jobs:
       - run: npm ci
         name: Install
 
+      - run: docker-compose up -d mysql mongodb
+        name: Start databases infraestructure
+
       - run: npm run knex:migrate
       - run: npm run knex:refresh
         name: Run Migrations
-
-      - run: docker-compose up -d mysql mongodb
-        name: Start databases infraestructure
 
       - run: npm run dev
         name: Running app
