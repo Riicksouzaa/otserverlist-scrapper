@@ -1,3 +1,3 @@
 import databaseConfig from "./config/database_config"
 
-module.exports = databaseConfig.sqlite
+module.exports = databaseConfig.mysql
